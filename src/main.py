@@ -3,11 +3,11 @@ import boto3
 import requests
 from urllib.parse import unquote_plus
 
-# Redmineの設定
+
 REDMINE_URL = 'https://your-redmine-instance.com'
 API_KEY = 'your_redmine_api_key'
 PROJECT_ID = 1  # プロジェクトID
-TRACKER_ID = 1  # トラッカーID, 例: Bug
+TRACKER_ID = 1  # トラッカーID
 
 s3 = boto3.client('s3')
 
@@ -20,7 +20,7 @@ def lambda_handler(event, context):
     response = s3.get_object(Bucket=bucket_name, Key=object_key)
     mail_content = response['Body'].read().decode('utf-8')
     
-    # メールの内容からチケットの詳細を抽出（簡単化のため、ここでは全文を本文として使用）
+    # メールの内容からチケットの詳細を抽出
     subject = "New Ticket from Email"
     description = mail_content
 
